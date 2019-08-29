@@ -8,8 +8,12 @@ This allows for benchmarking of: libc, [tcmalloc](http://goog-perftools.sourcefo
 - cmake is used
 - tcmalloc and jemalloc needs to be installed on the machine. E.g.
 ```
-sudo dnf install jemalloc
+sudo dnf install jemalloc-devel
 sudo dnf install google-perftools
+```
+- argument parsing is done using [Argh](https://github.com/adishavit/argh), which is cloned as a submodule, so don't forget to update it before building:
+```
+git submodule update --init
 ```
 ## Building:
 To build, create a build directory. E.g.
@@ -32,3 +36,8 @@ usage: ./proxy_libc[--iterations=<number>|--threads=<number>|--min-size=<bytes>|
 	max-size: the maximum size in bytes to allocate per object [default to min-size if set, or to 1K if not]
 	overall-iterations: number of times the test is executed [default 1]
 ```
+To get a comperative report of operations per second for different setups, you can use the ``run_test.sh`` script. Notre that script should be executed from within the ``build`` directory. E.g.
+```
+cd build && ../run_tests.sh
+```
+

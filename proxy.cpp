@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <random>
 #include <iostream>
+#include <iomanip>
 #include <atomic>
 #include <memory>
 #include <boost/lockfree/queue.hpp>
@@ -139,8 +140,12 @@ int main(int, char** argv) {
     }
     // create a single queue for the case that threads=0
     auto single_q = ObjectQueuePtr(new ObjectQueue()); 
-    
+   
+    const auto number_of_ops = number_of_iterations*std::max(number_of_threads,1U);
+
     std::cout.imbue(std::locale(""));
+    std::cout << std::setprecision(2);
+    std::cout << std::fixed;
 
     for (auto oi = 0U; oi < overall_iterations; ++oi) {
         std::cout << "iteration: " << oi << " started ====================" << std::endl;
@@ -222,7 +227,7 @@ int main(int, char** argv) {
                         delete obj;
                         ++failed_to_push;
                         // dont spin when the queue is full
-                        std::this_thread::sleep_for(std::chrono::microseconds(1));
+                        std::this_thread::sleep_for(std::chrono::microseconds(100));
                     }
                 }
                 acc.producer_ended(number_of_iterations, failed_to_push);
@@ -248,10 +253,10 @@ int main(int, char** argv) {
             std::cout << "system CPU time: " << diff_system_time_ms << " ms" << std::endl;
             const auto cpu_usage = 100.0*(diff_user_time_ms + diff_system_time_ms)/elapsed_time_ms;
             std::cout << "CPU usage: " << cpu_usage << " %" << std::endl;
-            std::cout << "CPU cost per op: " << cpu_usage/number_of_iterations << std::endl;
+            std::cout << "CPU cost per op:" << cpu_usage/number_of_ops << std::endl;
         }
         std::cout << "elapsed time: " << elapsed_time_ms << " ms" << std::endl;
-        std::cout << "ops per second: " << number_of_iterations/elapsed_time_ms << std::endl;
+        std::cout << "ops per second: " << number_of_ops/elapsed_time_ms << std::endl;
         statm_t mem_end;
         read_off_memory_status(mem_end);
         if (mem_end.resident > mem_start.resident) {
