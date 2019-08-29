@@ -10,6 +10,7 @@ This allows for benchmarking of: libc, [tcmalloc](http://goog-perftools.sourcefo
 ```
 sudo dnf install jemalloc-devel
 sudo dnf install google-perftools
+sudo dnf install numactl
 ```
 - argument parsing is done using [Argh](https://github.com/adishavit/argh), which is cloned as a submodule, so don't forget to update it before building:
 ```
