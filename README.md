@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/yuvalif/memory-benchmark.svg?branch=master)](https://travis-ci.org/yuvalif/memory-benchmark)
+
 # Memory Benchmarking
 This allows for benchmarking of: libc, [tcmalloc](http://goog-perftools.sourceforge.net/doc/tcmalloc.html) and [jemalloc](http://jemalloc.net/).
 - benchmarking is against a multi-threaded workload, where memeory is allocated in one thread and released in another

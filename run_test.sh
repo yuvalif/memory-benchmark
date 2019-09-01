@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 temp_th=$(mktemp)
 temp_file_libc=$(mktemp)
 temp_file_tc=$(mktemp)

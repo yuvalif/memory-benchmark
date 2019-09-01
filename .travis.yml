@@ -1,0 +1,25 @@
+language: cpp
+
+compiler:
+  - clang
+  - gcc
+
+os: linux
+
+dist: 
+  - bionic
+  - xenial
+
+install:
+  - sudo apt-get install libjemalloc-dev -y
+  - sudo apt-get install libgoogle-perftools-dev -y
+  - sudo apt-get install numactl -y
+  - sudo apt-get install cmake -y
+  - sudo apt install libboost-all-dev
+
+script:
+  - mkdir -p build
+  - cd build
+  - cmake  .. 
+  - make
+  - ../run_test.sh
