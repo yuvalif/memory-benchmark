@@ -15,7 +15,7 @@ install:
   - sudo apt-get install libgoogle-perftools-dev -y
   - sudo apt-get install numactl -y
   - sudo apt-get install cmake -y
-  - sudo apt install libboost-all-dev
+  - sudo apt-get install libboost-all-dev -y
 
 script:
   - mkdir -p build
